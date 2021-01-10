@@ -1,28 +1,15 @@
-import React from 'react';
-import USCurrencyFormat from './currency'
+import React, { Component } from 'react'
+import Options from './Options'
+import Total from './Total'
 
-//Cart Component
-export default function Summary (props) {
-
-  
-    let summary = Object.keys(props.theState).map((feature, idx) => {
-      const featureHash = feature + '-' + idx;
-      const selectedOption = props.theState[feature];
-
-      return (
-        <div className="summary__option" key={featureHash}>
-          <div className="summary__option__label">{feature} </div>
-          <div className="summary__option__value" >{selectedOption.name}</div>
-          <div className="summary__option__cost">
-            {USCurrencyFormat.format(selectedOption.cost)}
-          </div>
-        </div>
-      );  
-    });
-     
+export default class Summary extends Component {
+  render() {
     return (
-      <>
-      {summary}
-      </>
+      <section className="main__summary">
+        <h2>Your cart</h2>
+        <Options selected={this.props.selected} />
+        <Total selected={this.props.selected} />
+      </section>
     )
   }
+} 

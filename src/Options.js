@@ -1,27 +1,27 @@
-import React from 'react'
-import slugify from 'slugify';
-import USCurrencyFormat from './currency'
 
-export default function Options (props) {
+import React, { Component } from 'react'
+import USCurrencyFormat from './USCurrencyFormat'
 
-  return props.FEATURES[props.feature].map(item => {
-    const itemHash = slugify(JSON.stringify(item));
+export default class Options extends Component {
+  render() {
+    const summary = Object.keys(this.props.selected).map((feature, idx) => {
+      const featureHash = feature + '-' + idx;
+      const selectedOption = this.props.selected[feature];
+
+      return (
+        <div className="summary__option" key={featureHash}>
+          <div className="summary__option__label">{feature} </div>
+          <div className="summary__option__value">{selectedOption.name}</div>
+          <div className="summary__option__cost">
+            {USCurrencyFormat.format(selectedOption.cost)}
+          </div>
+        </div>
+      );
+    });
+
     return (
-      <div key={itemHash} className="feature__item">
-        <input
-          type="radio"
-          id={itemHash}
-          className="feature__option"
-          name={slugify(props.feature)}
-          checked={item.name === props.theState[props.feature].name}
-          onChange={e => props.updateFeatures(props.feature, item)}
-        />
-        <label htmlFor={itemHash} className="feature__label">
-          {item.name} ({USCurrencyFormat.format(item.cost)})
-        </label>
-      </div>
+      summary
     );
-  });
-  
+  }
 }
 

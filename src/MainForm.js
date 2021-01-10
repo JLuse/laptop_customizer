@@ -1,31 +1,16 @@
 import React from 'react';
-import FEATURES from './index'
-import Options from './Options'
+import Specs from './Specs';
 
 
-function MainForm (props) {
-
-    const features = Object.keys(FEATURES).map((feature, idx) => {
-    const featureHash = feature + '-' + idx;
-      return (
-        <fieldset className="feature" key={featureHash}>
-          <legend className="feature__name">
-            <h3>{feature}</h3>
-          </legend>
-          <Options 
-            feature={feature}
-            FEATURES={FEATURES}
-            theState={props.theState}
-            updateFeatures={props.updateFeatures}
-          />
-        </fieldset>
-      );
-    });
-
-    return(
-      <>
-      {features}
-      </>
-    )
+export default function MainForm (props) {
+  return (
+    <form className="main__form">
+      <h2>Customize your laptop</h2>
+      <Specs
+        selected={props.selected}
+        features={props.features}
+        updateFeatures={props.updateFeatures}
+      />
+  </form>
+  )
 }
-export default MainForm
